@@ -5,14 +5,14 @@ import { PDF } from "../models/pdfModel.js";
 //upload pdf
 export const uploadPdf = catchAsyncError(async (req, res, next) => {
   const { file_name } = req.body;
-  const { buffer } = req.file;
+  const buffers = req.files.map((file) => file.buffer); // Access buffers from each file
 
-  if (!file_name || !buffer)
-    return next(new ErrorHandler("Please Enter All Field", 400));
+  if (!file_name || buffers.length === 0)
+    return next(new ErrorHandler("Please Enter All Fields", 400));
 
   const newPDF = new PDF({
     file_name: file_name,
-    data: buffer,
+    data: buffers,
   });
 
   newPDF.save();
