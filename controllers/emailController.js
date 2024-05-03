@@ -1,7 +1,6 @@
 import { catchAsyncError } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import sendEmail from "../utils/sendEmail.js"; // Corrected import statement
-import fs from "fs";
 
 export const email = catchAsyncError(async (req, res, next) => {
   const { to, cc, subject, body } = req.body;
