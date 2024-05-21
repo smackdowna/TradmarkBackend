@@ -6,6 +6,10 @@ const schema = new mongoose.Schema({
       type: String,
       required: [true, "Please Enter Your pdf name"],
     },
+    subject: {
+      type: String,
+      required: [true, "Please Enter Your subject"],
+    },
     data:{
         type: Buffer,
     },

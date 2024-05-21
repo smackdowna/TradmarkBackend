@@ -25,7 +25,7 @@ import { PDF } from "../models/pdfModel.js";
 
 
 export const uploadPdf = catchAsyncError(async (req, res, next) => {
-  const { file_name } = req.body;
+  const { file_name,subject } = req.body;
   const buffers = req.files.map((file) => file.buffer); // Access buffers from each file
 
   if (!file_name || buffers.length === 0)
@@ -36,6 +36,7 @@ export const uploadPdf = catchAsyncError(async (req, res, next) => {
 
   const newPDF = new PDF({
     file_name: file_name,
+    subject:subject,
     data: concatenatedBuffer,
   });
 
@@ -67,6 +68,7 @@ export const getAllPdf = catchAsyncError(async (req, res, next) => {
   const formattedPdfs = pdfs.map(pdf => ({
     _id: pdf._id,
     file_name: pdf.file_name,
+    subject:pdf.subject,
     data: pdf.data.toString('base64'), // Convert Buffer to base64 string
     createdAt: pdf.createdAt,
     __v: pdf.__v
